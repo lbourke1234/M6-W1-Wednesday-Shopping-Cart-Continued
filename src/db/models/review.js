@@ -11,7 +11,7 @@ const Review = sequelize.define('review', {
     type: DataTypes.TEXT,
     allowNull: false
   },
-  username: {
+  productId: {
     type: DataTypes.STRING,
     allowNull: false
   }

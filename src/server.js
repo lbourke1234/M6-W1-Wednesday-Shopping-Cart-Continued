@@ -21,7 +21,7 @@ const initialize = async () => {
     server.listen(PORT, async () => {
       console.log(`Server is listening on port ${PORT}`)
       await testDB()
-      await sequelize.sync()
+      await sequelize.sync({ force: true })
     })
 
     server.on('ERROR: ', (error) => {

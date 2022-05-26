@@ -36,7 +36,8 @@ productRouter.get('/', async (req, res, next) => {
         price: {
           [Op.gte]: 20000
         }
-      }
+      },
+      include: Review
     })
     res.send(products)
   } catch (error) {
