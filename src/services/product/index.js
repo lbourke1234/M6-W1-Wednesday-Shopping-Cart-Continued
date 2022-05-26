@@ -1,18 +1,19 @@
 import express from 'express'
 import models from '../../db/models/index.js'
 
-const { Product, Review } = models
+const { Product, Review, Category } = models
 const productRouter = express.Router()
 
 productRouter.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({
-      include: Review
+      // include: Review
+      // Category
     })
     res.send(products)
   } catch (error) {
     console.log(error)
-    next(err)
+    next(error)
   }
 })
 
@@ -26,7 +27,7 @@ productRouter.get('/:id', async (req, res, next) => {
     }
   } catch (error) {
     console.log(error)
-    next(err)
+    next(error)
   }
 })
 
@@ -36,19 +37,19 @@ productRouter.post('/', async (req, res, next) => {
     res.send(newProduct)
   } catch (error) {
     console.log(error)
-    next(err)
+    next(error)
   }
 })
-productRouter.post('/:productId/reviews', async (req, res, next) => {
+productRouter.post('/:id/reviews', async (req, res, next) => {
   try {
     const newProduct = await Review.create({
       ...req.body,
-      productId: req.params.productId
+      id: req.params.id
     })
     res.send(newProduct)
   } catch (error) {
     console.log(error)
-    next(err)
+    next(error)
   }
 })
 productRouter.put('/:id', async (req, res, next) => {
@@ -66,7 +67,7 @@ productRouter.put('/:id', async (req, res, next) => {
     }
   } catch (error) {
     console.log(error)
-    next(err)
+    next(error)
   }
 })
 
@@ -80,7 +81,7 @@ productRouter.delete('/:id', async (req, res, next) => {
     res.send({ rows })
   } catch (error) {
     console.log(error)
-    next(err)
+    next(error)
   }
 })
 

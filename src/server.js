@@ -4,12 +4,16 @@ import sequelize from './db/index.js'
 import { testDB } from './db/index.js'
 import productRouter from './services/product/index.js'
 import reviewRouter from './services/reviews/index.js'
+import usersRouter from './services/users/index.js'
+import categoryRouter from './services/category/index.js'
 
 const server = express()
 server.use(express.json())
 server.use(cors())
 server.use('/products', productRouter)
-server.use('/reviews', reviewRouter)
+server.use('/products/reviews', reviewRouter)
+server.use('/users', usersRouter)
+server.use('/category', categoryRouter)
 const { PORT } = process.env
 
 const initialize = async () => {
