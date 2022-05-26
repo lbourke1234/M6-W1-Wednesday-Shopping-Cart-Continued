@@ -11,7 +11,7 @@ const server = express()
 server.use(express.json())
 server.use(cors())
 server.use('/products', productRouter)
-server.use('/products/reviews', reviewRouter)
+server.use('/reviews', reviewRouter)
 server.use('/users', usersRouter)
 server.use('/category', categoryRouter)
 const { PORT } = process.env

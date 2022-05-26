@@ -8,7 +8,7 @@ const reviewRouter = express.Router()
 reviewRouter.get('/', async (req, res, next) => {
   try {
     const reviews = Review.findAll({
-      include: Product
+      // include: Product
     })
     res.send(reviews)
   } catch (error) {

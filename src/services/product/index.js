@@ -1,5 +1,6 @@
 import express from 'express'
 import models from '../../db/models/index.js'
+import { Op } from 'sequelize'
 
 const { Product, Review, Category } = models
 const productRouter = express.Router()
@@ -7,8 +8,35 @@ const productRouter = express.Router()
 productRouter.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({
-      // include: Review
-      // Category
+      where: req.query.search && {
+        [Op.or]: [
+          {
+            name: {
+              [Op.iLike]: `%${req.query.search}%`
+            }
+          },
+          {
+            description: {
+              [Op.iLike]: `%${req.query.search}%`
+            }
+          }
+        ]
+      },
+      where: req.query.price && {
+        price: {
+          [Op.lte]: 5000
+        }
+      },
+      where: req.query.mid && {
+        price: {
+          [Op.between]: [5001, 19999]
+        }
+      },
+      where: req.query.high && {
+        price: {
+          [Op.gte]: 20000
+        }
+      }
     })
     res.send(products)
   } catch (error) {
