@@ -8,12 +8,13 @@ import usersRouter from './services/users/index.js'
 import categoryRouter from './services/category/index.js'
 
 const server = express()
-server.use(express.json())
+
 server.use(cors())
+server.use(express.json())
 server.use('/products', productRouter)
 server.use('/reviews', reviewRouter)
 server.use('/users', usersRouter)
-server.use('/category', categoryRouter)
+server.use('/categories', categoryRouter)
 const { PORT } = process.env
 
 const initialize = async () => {
@@ -21,7 +22,7 @@ const initialize = async () => {
     server.listen(PORT, async () => {
       console.log(`Server is listening on port ${PORT}`)
       await testDB()
-      await sequelize.sync({ force: true })
+      await sequelize.sync()
     })
 
     server.on('ERROR: ', (error) => {
